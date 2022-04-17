@@ -1,0 +1,63 @@
+#
+# nodo — Keep clean from node_modules.
+#
+nodo() {
+  # Checks for any parameter, or shows help.
+  if [[ "$#" -eq 0 && -z "$GIT_CONFIG_URL" ]]; then
+    echo "nodo: for more information see 'nodo --help'"
+    return 0
+  fi
+
+  # Shows `help` message.
+  if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    <<EOF
+Usage: nodo [options]
+Stop syncing or remove node_modules from the current working directory.
+
+  -n, --nosync      stop the sync of the node_modules directory into iCloud
+  -r, --remove      remove the node_modules within the chosen root directory
+  -h, --help        display this help and exit
+
+Note: When nodo is launched inside a git repository, it will search for the
+.gitignore file, if it doesn't find it, it will create it otherwise it will
+append node_modules to the existing one.
+
+Full documentation <https://github.com/nicolodiamante/nodo/>
+EOF
+    return 0
+  fi
+
+    # Stop syncing node_modules from the current working directory.
+    if [[ "$1" == "-n" || "$1" == "--nosync" ]]; then
+    if [[ -d "node_modules" ]]; then
+      if [[ ! -d "node_modules.tmp" ]]; then
+        mv node_modules node_modules.tmp && ln -s node_modules.tmp node_modules && \
+        chflags hidden node_modules.tmp
+        echo 'nodo: stopped syncing node_modules'
+      else
+        echo 'nodo: already stopped syncing node_modules'
+      fi
+
+      # Check if current directory is a Git repository.
+      if [[ -d .git ]]; then
+        # Check if `.gitignore` is present in the current directory.
+        if [[ -f ".gitignore" ]]; then
+          if grep -qwF 'node_modules' .gitignore; then
+            true
+          else
+            echo "node_modules/" >> .gitignore
+          fi
+        else
+          touch .gitignore && echo "node_modules/" >> .gitignore
+        fi
+      fi
+    fi
+
+  # Remove node_modules from the current working directory.
+  elif [[ "$1" == "-r" || "$1" == "--remove" ]]; then
+    if [[ -d "node_modules" ]]; then
+      find . -name 'node_modules' -type d -prune -delete && \
+      echo 'nodo: removed node_modules!'
+    fi
+  fi
+}
