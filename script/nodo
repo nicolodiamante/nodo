@@ -1,6 +1,7 @@
 #
 # nodo — Keep clean from node_modules.
 #
+
 nodo() {
   # Checks for any parameter, or shows help.
   if [[ "$#" -eq 0 && -z "$GIT_CONFIG_URL" ]]; then
