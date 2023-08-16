@@ -1,5 +1,5 @@
 #
-# nodo — Keep clean from node_modules.
+# Nodo — Keep clean from node_modules.
 # By Nicolò Diamante <hello@nicolodiamante.com>
 # https://github.com/nicolodiamante/nodo
 # MIT License
@@ -65,3 +65,5 @@ EOF
     fi
   fi
 }
+
+unset nodo
