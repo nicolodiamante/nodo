@@ -12,26 +12,31 @@ Fortunately, there is a solution to this problem. If you're working on a Mac, [i
 
 ## Getting Started
 
-Download the repository via curl:
+Here are the two methods you can choose from:
+
+**Automatic Download via `curl`**: Simply execute the following command in your terminal to quickly download and seamlessly install the utility:
 
 ```shell
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/nicolodiamante/nodo/HEAD/bootstrap.sh)"
 ```
 
-Alternatively, clone manually:
+**Manual Cloning**: For those who prefer a hands-on approach, you can manually clone the repository to your desired location:
 
 ```shell
 git clone https://github.com/nicolodiamante/nodo.git ~/nodo
 ```
 
-Head over into the directory and then:
+<br>
+
+### Post-Download Steps
+
+**Directory Navigation & Script Execution**: Navigate to the repository's `utils` directory and execute the installation script:
 
 ```shell
-cd utils && source install.sh
+source install.sh
 ```
 
-The script will look for the zshrc and then append the full path to the
-`nodo/script` directory to the fpath:
+**Nodo Configuration**: This script aims to locate the `zshrc` file, then appends the path `nodo/script` to the `fpath` variable.
 
 ```shell
 fpath=(~/nodo/script $fpath)
@@ -42,26 +47,33 @@ autoload -Uz nodo
 
 ### Install via [Oh My Zsh][ohmyzsh]
 
+If you're using Oh My Zsh, you can install `nodo` as a plugin:
+
 ```shell
 git clone https://github.com/nicolodiamante/nodo.git $ZSH_CUSTOM/plugins/nodo
 ```
 
-- Add to your zshrc plugins array `plugins=(... nodo)`
-- Restart the shell to activate
+Then, add `nodo` to your `.zshrc` plugins array:
+
+```shell
+plugins=(... nodo)
+```
+
+Restart theshell to activate the changes.
 <br><br>
 
 ## How to use nodo
 
 ```shell
-nodo [-n, --nosync] [-r, --remove]
+nodo [option]
 ```
 
-- `nodo --nosync` stop the sync of the node_modules directory into iCloud.
+Options:
 
-- `nodo --remove` remove the node_modules directory within the chosen
-root directory.
+- `--nosync`: Stop the sync of the `node_modules` directory into iCloud.
+- `--remove`: Remove the `node_modules` directory within the chosen root directory.
 
-For full nodo options, see `nodo --help`.
+For a comprehensive list of options and functionalities, use: `nodo --help`.
 <br><br>
 
 ## Notes
@@ -99,6 +111,7 @@ Any suggestions or feedback you may have for improvement are welcome. If you enc
 </p>
 
 <!-- Link labels: -->
+
 [apple-icloud]: https://www.apple.com/icloud/
 [ohmyzsh]: https://github.com/robbyrussell/oh-my-zsh/
 [node-modules]: https://nodejs.org/api/modules.html

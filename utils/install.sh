@@ -11,20 +11,29 @@ if [[ "$(basename -- "$SHELL")" != "zsh" ]]; then
 fi
 
 # Defines the PATHs.
-SCRIPT="${HOME}/nodo/script"
+SCRIPT_DIR="$(dirname "$0")"
+SCRIPT="${SCRIPT_DIR}/script"
 ZSHRC="${ZDOTDIR:-${XDG_CONFIG_HOME/zsh:-$HOME}}/.zshrc"
 
-if [[ -d "$SCRIPT" && -f "$ZSHRC" ]]; then
+# Check for SCRIPT directory.
+if [[ ! -d "$SCRIPT" ]]; then
+  echo 'zsh: Nodo script directory not found!'
+  exit 1
+fi
+
+# Check for ZSHRC file.
+if [[ ! -f "$ZSHRC" ]]; then
+  echo 'zsh: zshrc not found!'
+  exit 1
+fi
+
 # Append the necessary lines to zshrc.
 cat << EOF >> ${ZSHRC}
 # nodo
-fpath=(~/nodo/script \$fpath)
+fpath=(${SCRIPT} \$fpath)
 autoload -Uz nodo
 EOF
-  echo 'zsh: appended Nodo's necessary lines to .zshrc'
+echo "zsh: appended Nodo's necessary lines to .zshrc"
 
-  # Reloads shell.
-  source "${ZSHRC}"
-else
-  echo 'zsh: zshrc not found!'
-fi
+# Advise user to reload shell or open a new terminal session.
+echo "Please reload your zsh shell or open a new terminal session to apply changes."

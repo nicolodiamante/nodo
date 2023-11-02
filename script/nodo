@@ -14,8 +14,8 @@ nodo() {
 
   # Shows `help` message.
   if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-    <<EOF
-Usage: nodo [options]
+    cat <<EOF
+Usage: nodo [option]
 Stop syncing or remove node_modules from the current working directory.
 
   -n, --nosync      stop the sync of the node_modules directory into iCloud
@@ -31,8 +31,8 @@ EOF
     return 0
   fi
 
-    # Stop syncing node_modules from the current working directory.
-    if [[ "$1" == "-n" || "$1" == "--nosync" ]]; then
+  # Stop syncing node_modules from the current working directory.
+  if [[ "$1" == "-n" || "$1" == "--nosync" ]]; then
     if [[ -d "node_modules" ]]; then
       if [[ ! -d "node_modules.tmp" ]]; then
         mv node_modules node_modules.tmp && ln -s node_modules.tmp node_modules && \
@@ -43,27 +43,19 @@ EOF
       fi
 
       # Check if current directory is a Git repository.
-      if [[ -d .git ]]; then
-        # Check if `.gitignore` is present in the current directory.
-        if [[ -f ".gitignore" ]]; then
-          if grep -qwF 'node_modules' .gitignore; then
-            true
-          else
-            echo "node_modules/" >> .gitignore
-          fi
-        else
-          touch .gitignore && echo "node_modules/" >> .gitignore
-        fi
+      if [[ -d .git && ! $(grep -qwF 'node_modules' .gitignore) ]]; then
+        echo "node_modules/" >> .gitignore
+      elif [[ ! -f ".gitignore" ]]; then
+        touch .gitignore && echo "node_modules/" >> .gitignore
       fi
     fi
 
   # Remove node_modules from the current working directory.
   elif [[ "$1" == "-r" || "$1" == "--remove" ]]; then
     if [[ -d "node_modules" ]]; then
-      find . -name 'node_modules' -type d -prune -delete && \
-      echo 'nodo: removed node_modules!'
+      rm -rf node_modules && echo 'nodo: removed node_modules!'
+    else
+      echo 'nodo: node_modules not found in the current directory'
     fi
   fi
 }
-
-unset nodo
