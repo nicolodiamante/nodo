@@ -6,6 +6,7 @@ if [[ "$SHELL" != */zsh ]]; then
   exit 1
 fi
 
+# Defines the PATHs.
 SOURCE="https://github.com/nicolodiamante/nodo"
 TARBALL="${SOURCE}/tarball/master"
 TARGET="${HOME}/nodo"
