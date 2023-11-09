@@ -1,6 +1,8 @@
 #!/bin/zsh
 
-# Uninstall Nodo
+#
+# Uninstall Nodo.
+#
 
 echo "Starting the uninstallation process of Nodo..."
 

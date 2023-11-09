@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+#
+# Start Nodo Installation.
+#
+
 # Determines the current user's shell.
 if [[ "$SHELL" != */zsh ]]; then
   echo "Please switch to zsh shell to continue."

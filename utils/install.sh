@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 #
-# Install Nodo
+# Install Nodo.
 #
 
 # Determines the current user's shell, if not `zsh` then exit.
