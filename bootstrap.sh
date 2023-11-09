@@ -1,7 +1,10 @@
 #!/bin/zsh
 
 # Determines the current user's shell.
-[[ "$SHELL" == */zsh ]] || { echo "Please switch to zsh shell to continue."; exit 1; }
+if [[ "$SHELL" != */zsh ]]; then
+  echo "Please switch to zsh shell to continue."
+  exit 1
+fi
 
 SOURCE="https://github.com/nicolodiamante/nodo"
 TARBALL="${SOURCE}/tarball/master"
@@ -35,11 +38,22 @@ fi
 echo 'Installing Nodo...'
 
 # Create the target directory and proceed with the chosen download method.
-mkdir -p "${TARGET}" || { echo "Error: Failed to create target directory. Aborting!" >&2; exit 1; }
+if ! mkdir -p "${TARGET}"; then
+  echo "Error: Failed to create target directory. Aborting!" >&2
+  exit 1
+fi
 
 # Execute the download command and run the installation script.
-if ${CMD}; then
-  cd "${TARGET}" && source "${INSTALL}" || { echo "Error: Failed to navigate to ${TARGET} or run the install script. Aborting!" >&2; exit 1; }
+if eval "${CMD}"; then
+  if cd "${TARGET}"; then
+    if ! source "${INSTALL}"; then
+      echo "Error: Failed to run the install script. Aborting!" >&2
+      exit 1
+    fi
+  else
+    echo "Error: Failed to navigate to ${TARGET}. Aborting!" >&2
+    exit 1
+  fi
 else
   echo "Download failed. Aborting!" >&2
   exit 1
