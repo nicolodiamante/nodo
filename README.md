@@ -14,13 +14,13 @@ Fortunately, there is a solution to this problem. If you're working on a Mac, [i
 
 Here are the two methods you can choose from:
 
-**Automatic Download via `curl`**: Simply execute the following command in your terminal to quickly download and seamlessly install the utility:
+**Automatic Download via `curl`:** Simply execute the following command in your terminal to quickly download and seamlessly install the utility:
 
 ```shell
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/nicolodiamante/nodo/HEAD/bootstrap.sh)"
+zsh -c "$(curl -fsSL https://raw.githubusercontent.com/nicolodiamante/nodo/HEAD/bootstrap.zsh)"
 ```
 
-**Manual Cloning**: For those who prefer a hands-on approach, you can manually clone the repository to your desired location:
+**Manual Cloning:** For those who prefer a hands-on approach, you can manually clone the repository to your desired location:
 
 ```shell
 git clone https://github.com/nicolodiamante/nodo.git ~/nodo
@@ -30,10 +30,10 @@ git clone https://github.com/nicolodiamante/nodo.git ~/nodo
 
 ### Post-Download Steps
 
-**Directory Navigation & Script Execution**: Navigate to the repository's `utils` directory and execute the installation script:
+**Directory Navigation & Script Execution:** Navigate to the root directory of the repository, and then execute the installation script using the following command:
 
 ```shell
-source install.sh
+source utils/install.zsh
 ```
 
 **Nodo Configuration**: This script aims to locate the `zshrc` file, then appends the path `nodo/script` to the `fpath` variable.
@@ -98,9 +98,9 @@ Any suggestions or feedback you may have for improvement are welcome. If you enc
 </p>
 
 <p align="center">
-  <picture>
-    <img src="https://github.com/nicolodiamante/nodo/assets/48920263/ea2fbe5e-261f-4d16-b778-3a8232d03cda" draggable="false" ondragstart="return false;" alt="Nicol&#242; Diamante" title="Nicol&#242; Diamante" width="17px" />
-  </picture>
+  <a href="https://nicolodiamante.com" target="_blank">
+    <img src="https://github.com/nicolodiamante/nodo/assets/48920263/ea2fbe5e-261f-4d16-b778-3a8232d03cda" draggable="false" ondragstart="return false;" alt="Nicol&#242; Diamante Portfolio" title="Nicol&#242; Diamante" width="17px" />
+  </a>
 </p>
 
 <p align="center">
