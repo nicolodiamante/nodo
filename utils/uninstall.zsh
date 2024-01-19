@@ -12,7 +12,7 @@ ZSHRC_BACKUP_GLOB="${ZSHRC}_nodo_backup*.bak"
 
 # Function to remove Nodo configurations.
 remove_nodo_config() {
-  echo "Nodo: Checking for existing configuration in .zshrc..."
+  echo "\nNodo: Checking for existing configuration in .zshrc..."
 
   local NODO_PATH_LINE="fpath=($HOME/nodo/script $fpath)"
   local AUTOLOAD_LINE="autoload -Uz nodo"
@@ -45,7 +45,7 @@ if [[ -f "$ZSHRC" ]]; then
   backups=($(ls -t $ZSHRC_BACKUP_GLOB 2>/dev/null))
   if [[ ${#backups[@]} -gt 0 ]]; then
     latest_backup="${backups[0]}"
-    echo "Nodo: Latest backup found at ${latest_backup}."
+    echo "\nNodo: Latest backup found at ${latest_backup}."
     read -q "REPLY?Do you want to restore from the latest backup? [y/N] "
     echo ""
     if [[ "$REPLY" =~ ^[Yy]$ ]]; then
@@ -54,7 +54,7 @@ if [[ -f "$ZSHRC" ]]; then
         echo "Nodo: Restored .zshrc from the latest backup."
         exit 0
       else
-        echo "Nodo: Failed to restore .zshrc from the latest backup." >&2
+        echo "\nNodo: Failed to restore .zshrc from the latest backup." >&2
         exit 1
       fi
     else
@@ -64,7 +64,7 @@ if [[ -f "$ZSHRC" ]]; then
     remove_nodo_config
   fi
 else
-  echo "Nodo: .zshrc not found. No cleanup needed."
+  echo "\nNodo: .zshrc not found. No cleanup needed."
 fi
 
-echo "Nodo: Uninstall complete."
+echo "\nNodo: Uninstall complete."

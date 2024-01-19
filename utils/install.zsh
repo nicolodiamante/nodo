@@ -15,7 +15,7 @@ ZSHRC="${ZDOTDIR:-$HOME}/.zshrc"
 
 # Update .zshrc with Nodo.
 if [[ -f "$ZSHRC" ]]; then
-  echo "Nodo: Starting the installation process..."
+  echo "\nNodo: Starting the installation process..."
 
   # Ask the user if they want to create a backup.
   read -q "REPLY?Found an existing .zshrc in ${ZSHRC}. Do you want to create a backup? [y/N] "
@@ -25,7 +25,7 @@ if [[ -f "$ZSHRC" ]]; then
     backup_count=$(ls ${ZSHRC}_nodo_backup*.bak 2>/dev/null | wc -l | tr -d ' ')
     BACKUP="${ZSHRC}_nodo_backup${backup_count}.bak"
 
-    echo "Nodo: Backing up zshrc as: ${BACKUP}..."
+    echo "\nNodo: Backing up zshrc as: ${BACKUP}..."
     if cp "${ZSHRC}" "${BACKUP}"; then
       echo "Nodo: Backup successful."
     else
@@ -35,7 +35,7 @@ if [[ -f "$ZSHRC" ]]; then
   fi
 
   # Updates .zshrc with Nodo configurations.
-  echo "Nodo: Updating .zshrc..."
+  echo "\nNodo: Updating .zshrc..."
   NODO_PATH_LINE="fpath=($HOME/nodo/script $fpath)"
   AUTOLOAD_LINE="autoload -Uz nodo"
   if ! grep -Fxq "${NODO_PATH_LINE}" "${ZSHRC}" && ! grep -Fxq "${AUTOLOAD_LINE}" "${ZSHRC}"; then
@@ -49,12 +49,12 @@ if [[ -f "$ZSHRC" ]]; then
   fi
 else
   # Creates a new .zshrc file if it doesn't exist.
-  echo "Nodo: .zshrc not found. Creating a new one..."
+  echo "\nNodo: .zshrc not found. Creating a new one..."
   if ! touch "${ZSHRC}"; then
     echo "Nodo: Failed to create a new .zshrc." >&2
     exit 1
   fi
-  echo "Nodo: Adding PATH to a new .zshrc..."
+  echo "\nNodo: Adding PATH to a new .zshrc..."
   echo "" >> "${ZSHRC}"
   echo "# Nodo PATH." >> "${ZSHRC}"
   echo "fpath=($HOME/nodo/script $fpath)" >> "${ZSHRC}"
@@ -64,7 +64,7 @@ fi
 
 # Attempts to reload .zshrc to apply changes
 if ! source "${ZSHRC}" &>/dev/null; then
-  echo "Nodo: Failed to reload .zshrc. Please reload manually to apply changes." >&2
+  echo "\nNodo: Failed to reload .zshrc. Please reload manually to apply changes." >&2
 fi
 
-echo "Nodo: Setup complete."
+echo "\nNodo: Setup complete."
