@@ -12,7 +12,7 @@ ZSHRC_BACKUP_GLOB="${ZSHRC}_nodo_backup*.bak"
 
 # Function to remove Nodo configurations.
 remove_nodo_config() {
-  echo "Checking for Nodo configuration in .zshrc..."
+  echo "Nodo: Checking for existing configuration in .zshrc..."
 
   local NODO_PATH_LINE="fpath=($HOME/nodo/script $fpath)"
   local AUTOLOAD_LINE="autoload -Uz nodo"
@@ -67,4 +67,4 @@ else
   echo "Nodo: .zshrc not found. No cleanup needed."
 fi
 
-echo "Nodo: Uninstallation complete."
+echo "Nodo: Uninstall complete."

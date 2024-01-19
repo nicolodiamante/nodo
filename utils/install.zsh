@@ -15,7 +15,7 @@ ZSHRC="${ZDOTDIR:-$HOME}/.zshrc"
 
 # Update .zshrc with Nodo.
 if [[ -f "$ZSHRC" ]]; then
-  echo "Starting the installation process of Nodo..."
+  echo "Nodo: Starting the installation process..."
 
   # Ask the user if they want to create a backup.
   read -q "REPLY?Found an existing .zshrc in ${ZSHRC}. Do you want to create a backup? [y/N] "
@@ -25,7 +25,7 @@ if [[ -f "$ZSHRC" ]]; then
     backup_count=$(ls ${ZSHRC}_nodo_backup*.bak 2>/dev/null | wc -l | tr -d ' ')
     BACKUP="${ZSHRC}_nodo_backup${backup_count}.bak"
 
-    echo "Nodo: Backing up zshrc as ${BACKUP}..."
+    echo "Nodo: Backing up zshrc as: ${BACKUP}..."
     if cp "${ZSHRC}" "${BACKUP}"; then
       echo "Nodo: Backup successful."
     else
@@ -45,7 +45,7 @@ if [[ -f "$ZSHRC" ]]; then
     echo "autoload -Uz nodo" >> "${ZSHRC}"
     echo "Nodo: Appended PATH to ${ZSHRC}"
   else
-    echo "Nodo: PATH is already present in ${ZSHRC}"
+    echo "Nodo: PATH is already present in: ${ZSHRC}"
   fi
 else
   # Creates a new .zshrc file if it doesn't exist.
@@ -64,7 +64,7 @@ fi
 
 # Attempts to reload .zshrc to apply changes
 if ! source "${ZSHRC}" &>/dev/null; then
-  echo "Please source .zshrc manually to apply changes." >&2
+  echo "Nodo: Failed to reload .zshrc. Please reload manually to apply changes." >&2
 fi
 
-echo "Nodo: Installation complete."
+echo "Nodo: Setup complete."
