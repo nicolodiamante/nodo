@@ -8,7 +8,7 @@ echo "Starting the uninstallation process of Nodo..."
 
 # Define the .zshrc PATH.
 ZSHRC="${ZDOTDIR:-$HOME}/.zshrc"
-ZSHRC_BACKUP_GLOB="${ZSHRC}_nodo_backup*.bak"
+ZSHRC_BACKUP_GLOB="${ZSHRC}_*.bak"
 
 # Function to remove Nodo configurations.
 remove_nodo_config() {
@@ -18,7 +18,7 @@ remove_nodo_config() {
   local AUTOLOAD_LINE="autoload -Uz nodo"
 
   if grep -Fxq "${NODO_PATH_LINE}" "${ZSHRC}" || grep -Fxq "${AUTOLOAD_LINE}" "${ZSHRC}"; then
-    read -q "REPLY?Nodo configurations found. Do you want to remove them from .zshrc? [y/N] "
+    read -q "REPLY?Nodo configurations found in .zshrc. Do you want to remove them? [y/N] "
     echo ""
     if [[ "$REPLY" =~ ^[Yy]$ ]]; then
       if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -45,7 +45,7 @@ if [[ -f "$ZSHRC" ]]; then
   backups=($(ls -t $ZSHRC_BACKUP_GLOB 2>/dev/null))
   if [[ ${#backups[@]} -gt 0 ]]; then
     latest_backup="${backups[0]}"
-    echo "\nNodo: Latest backup found at ${latest_backup}."
+    echo "Nodo: Latest backup found at ${latest_backup}."
     read -q "REPLY?Do you want to restore from the latest backup? [y/N] "
     echo ""
     if [[ "$REPLY" =~ ^[Yy]$ ]]; then
@@ -54,7 +54,7 @@ if [[ -f "$ZSHRC" ]]; then
         echo "Nodo: Restored .zshrc from the latest backup."
         exit 0
       else
-        echo "\nNodo: Failed to restore .zshrc from the latest backup." >&2
+        echo "Nodo: Failed to restore .zshrc from the latest backup." >&2
         exit 1
       fi
     else
@@ -67,4 +67,5 @@ else
   echo "\nNodo: .zshrc not found. No cleanup needed."
 fi
 
+# Prints a success message.
 echo "\nNodo: Uninstall complete."
